@@ -46,8 +46,8 @@ export default {
 
   data: () => ({
     form: new Form({
-      email: 'admin@example.com',
-      password: '123456'
+      email: '',
+      password: ''
     })
   }),
 
@@ -81,13 +81,6 @@ export default {
       } else {
         this.$router.push({ name: 'home' })
       }
-    },
-
-    fillWithAdmin () {
-      this.form.fill({
-        email: 'admin@example.com',
-        password: '123456'
-      })
     }
   }
 }
