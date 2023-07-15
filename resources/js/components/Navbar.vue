@@ -20,6 +20,19 @@
           </v-icon>
           Home
         </v-btn>
+        <v-btn
+          text
+          rounded
+          large
+          :to="{ name: 'blogs' }"
+          type="button"
+          class="text-capitalize text-base font-weight-regular px-6"
+        >
+          <v-icon left>
+            mdi-post
+          </v-icon>
+          Blogs
+        </v-btn>
         <v-btn color="primary" @click="logout">
           Logout
         </v-btn>
