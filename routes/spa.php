@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\SpaController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,3 +14,4 @@
 |
 */
 
+Route::get('{path}', SpaController::class)->where('path', '(.*)');
