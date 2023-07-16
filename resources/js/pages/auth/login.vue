@@ -20,10 +20,11 @@
             />
           </v-card-text>
           <v-divider />
-          <v-card-actions>
+          <v-card-actions class="flex flex-column">
             <v-btn class="pt-4 pb-4" block type="submit" color="primary" :loading="form.busy">
               Login
             </v-btn>
+            <div class="align-left mt-4">Don't have an account? Click <router-link to="/register">here</router-link> to register.</div>
           </v-card-actions>
         </v-form>
       </v-card>
