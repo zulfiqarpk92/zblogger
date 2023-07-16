@@ -29,6 +29,21 @@
         </v-btn>
       </template>
     </v-snackbar>
+    <v-snackbar
+      v-model="showError"
+      color="error"
+    >
+      {{ errorText }}
+      <template #action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="$store.dispatch('snackbar/hideError')"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -47,6 +62,12 @@ export default {
     },
     snackbarText () {
       return this.$store.getters['snackbar/snackbarText']
+    },
+    showError () {
+      return !!this.$store.getters['snackbar/errorText']
+    },
+    errorText () {
+      return this.$store.getters['snackbar/errorText']
     }
   }
 }

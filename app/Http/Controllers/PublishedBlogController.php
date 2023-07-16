@@ -24,6 +24,10 @@ class PublishedBlogController extends Controller
     public function show($id)
     {
         $blog = Blog::withCount('likes')->find($id);
+        if(!$blog)
+        {
+            return response([], 404);
+        }
         return new BlogResource($blog);
     }
 }

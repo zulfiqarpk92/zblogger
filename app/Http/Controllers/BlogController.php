@@ -29,7 +29,11 @@ class BlogController extends Controller
   public function store(BlogRequest $request)
   {
     $validated = $request->validated();
-    $image_path = $request->file('file')->store('images', 's3');
+    $image_path = null;
+    if($request->hasFile('file'))
+    {
+      $image_path = $request->file('file')->store('images', 's3');
+    }
     $blog = new Blog($validated);
     $blog->id = Blog::max('id') + 1;
     $blog->user_id = Auth::id();
@@ -46,12 +50,16 @@ class BlogController extends Controller
 
   public function update($id, BlogRequest $request)
   {
+    $blog = Blog::find($id);
+    if(!$blog || $blog->user_id != auth()->id())
+    {
+        return response()->json([], 404);
+    }
     $image_path = null;
     if($request->hasFile('file'))
     {
       $image_path = $request->file('file')->store('images', 's3');
     }
-    $blog = Blog::find($id);
     $blog->title = $request->input('title');
     $blog->body = $request->input('body');
     $blog->published_at = date('Y-m-d');
@@ -71,12 +79,24 @@ class BlogController extends Controller
   public function show($id)
   {
     $blog = Blog::find($id);
+    if(!$blog || $blog->user_id != auth()->id())
+    {
+        return response()->json([], 404);
+    }
     return response()->json($blog);
   }
 
   public function destroy($id)
   {
     $blog = Blog::find($id);
+    if(!$blog || $blog->user_id != auth()->id())
+    {
+        return response()->json([
+          'status'  => 'error',
+          'message' => "Blog not found.",
+          'data'    => []
+        ], 404);
+    }
     $blog->delete();
     return response()->json([
       'status'  => 'success',

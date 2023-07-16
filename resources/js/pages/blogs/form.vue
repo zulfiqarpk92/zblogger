@@ -107,6 +107,10 @@ export default {
       this.$http
         .get('/api/blogs/' + this.blogId)
         .then(({ data }) => {
+          if(!data.id){
+            this.$store.dispatch('snackbar/showError', 'Blog not found')
+            this.$router.push({ name: 'blogs' })
+          }
           this.form = new Form({
             title: data.title,
             body: data.body,
@@ -116,6 +120,10 @@ export default {
         })
         .catch(error => {
           console.log(error)
+          if(error.response.status === 404){
+            this.$store.dispatch('snackbar/showError', 'Blog not found')
+            this.$router.push({ name: 'blogs' })
+          }
           this.loading = false
         })
     },

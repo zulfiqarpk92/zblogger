@@ -1,7 +1,8 @@
 const snackbarStore = {
   namespaced: true,
   state: {
-    snackbarText: ''
+    snackbarText: '',
+    errorText: ''
   },
   mutations: {
     'SHOW_MESSAGE' (state, snackbarText) {
@@ -12,10 +13,20 @@ const snackbarStore = {
     },
     'HIDE_MESSAGE' (state) {
       state.snackbarText = ''
+    },
+    'SHOW_ERROR' (state, errorText) {
+      state.errorText = errorText
+      setTimeout(function () {
+        state.errorText = ''
+      }, 3000)
+    },
+    'HIDE_ERROR' (state) {
+      state.errorText = ''
     }
   },
   getters: {
-    snackbarText: state => state.snackbarText
+    snackbarText: state => state.snackbarText,
+    errorText: state => state.errorText,
   },
   actions: {
     showMessage ({ commit }, snackbarText) {
@@ -23,6 +34,12 @@ const snackbarStore = {
     },
     hideMessage ({ commit }) {
       commit('HIDE_MESSAGE')
+    },
+    showError ({ commit }, errorText) {
+      commit('SHOW_ERROR', errorText)
+    },
+    hideError ({ commit }) {
+      commit('HIDE_ERROR')
     }
   }
 }
