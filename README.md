@@ -8,7 +8,7 @@ Instructions for setting up the project on local machine.
 
 Please install the following softwares before setting up the project:
 
-- PHP 7.4 OR 8.0
+- PHP 8.1
 - Composer: [Download and Install Composer](https://getcomposer.org/download/)
 - Node.js 16: [Download and Install Node.js](https://nodejs.org/en/download/)
 
@@ -23,6 +23,7 @@ Please install the following softwares before setting up the project:
    ```
    composer install
    ```
+   If you face any issue try running `composer update`.
 
 4. Copy the `.env.example` file and rename it to `.env` if it is not copied by the composer install command. 
 
